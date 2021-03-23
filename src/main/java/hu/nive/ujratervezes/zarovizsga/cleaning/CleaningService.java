@@ -55,13 +55,17 @@ public class CleaningService {
     }
 
     public String getAddresses() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cleanables.size(); i++) {
-            sb.append(cleanables.get(i).getAddress());
-            if(i != cleanables.size()-1){
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < cleanables.size(); i++) {
+//            sb.append(cleanables.get(i).getAddress());
+//            if(i != cleanables.size()-1){
+//                sb.append(", ");
+//            }
+//        }
+//        return sb.toString();
+
+        return cleanables.stream()
+                .map(Cleanable::getAddress)
+                .collect(Collectors.joining(", "));
     }
 }
