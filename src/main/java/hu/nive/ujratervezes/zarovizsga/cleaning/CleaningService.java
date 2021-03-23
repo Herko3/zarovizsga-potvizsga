@@ -36,15 +36,21 @@ public class CleaningService {
     }
 
     public int cleanOnlyOffices() {
-        int sum = 0;
-        Iterator<Cleanable> iterator = cleanables.iterator();
-        while (iterator.hasNext()) {
-            Cleanable actual = iterator.next();
-            if (actual instanceof Office) {
-                sum += actual.clean();
-                iterator.remove();
-            }
-        }
+        int sum = cleanables.stream()
+                .filter(c -> c instanceof Office)
+                .mapToInt(Cleanable::clean)
+                .sum();
+        cleanables.removeIf(c -> c instanceof Office);
+
+//        int sum = 0;
+//        Iterator<Cleanable> iterator = cleanables.iterator();
+//        while (iterator.hasNext()) {
+//            Cleanable actual = iterator.next();
+//            if (actual instanceof Office) {
+//                sum += actual.clean();
+//                iterator.remove();
+//            }
+//        }
         return sum;
     }
 
